@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Course info application exercices
+
+Course info application exercices 2.1 through 2.5 of [part 2: Communicating with server](https://fullstackopen.com/en/part2) from the [Fullstackopen 2022 course](https://fullstackopen.com/en)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
