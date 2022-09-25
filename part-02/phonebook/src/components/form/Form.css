@@ -1,0 +1,38 @@
+.add-form {
+  margin-top: 16px;
+}
+
+.add-form form input,
+.add-form form label {
+  width: 80%;
+}
+
+.add-form form input[type="text"] {
+  margin-top: 4px;
+}
+
+.add-form form input[type="submit"] {
+  border: 1px solid rgb(0, 0, 0, 0);
+  background-color: #21262d;
+  margin-top: 32px;
+  padding: 14px;
+}
+
+.add-form form input[type="submit"]:hover {
+  border: 1px solid whitesmoke;
+}
+
+.add-form form input[type="submit"]:active {
+  background-color: #30363d;
+}
+
+form > :nth-child(3) {
+  margin-top: 12px;
+}
+
+@media (max-width: 750px) {
+  .add-form form input,
+  .add-form form label {
+    width: 100%;
+  }
+}

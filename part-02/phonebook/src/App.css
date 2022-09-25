@@ -1,0 +1,22 @@
+.split {
+  margin-top: 40px;
+  display: flex;
+  padding: 0 40px;
+}
+
+.left-form {
+  flex: 1;
+}
+
+.right-search {
+  flex: 2;
+}
+
+@media (max-width: 750px) {
+  .split {
+    flex-direction: column;
+  }
+  .right-search {
+    margin-top: 40px;
+  }
+}

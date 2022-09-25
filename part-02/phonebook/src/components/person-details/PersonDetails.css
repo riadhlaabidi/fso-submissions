@@ -1,0 +1,15 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background-color: #010409;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0);
+  font-size: 1.1rem;
+}
+
+.card:hover {
+  border: 1px solid whitesmoke;
+}
