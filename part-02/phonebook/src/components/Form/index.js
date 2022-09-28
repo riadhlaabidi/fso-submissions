@@ -1,4 +1,4 @@
-import "./Form.css";
+import "./form.css";
 
 const Form = ({ name, number, onNameChange, onNumberChange, onSubmit }) => {
   return (

@@ -1,4 +1,4 @@
-import "./Search.css";
+import "./search.css";
 
 const Search = ({ query, onChange }) => {
   return (

@@ -1,5 +1,5 @@
-import PersonDetails from "../person-details/PersonDetails";
-import "./ContactList.css";
+import PersonDetails from "../PersonDetails";
+import "./contact-list.css";
 
 const ContactList = ({ entries }) => {
   return (
