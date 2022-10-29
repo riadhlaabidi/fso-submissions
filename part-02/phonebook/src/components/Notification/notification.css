@@ -1,0 +1,21 @@
+.alert {
+  padding: 20px;
+  margin: 16px 40px 15px 0;
+  width: 80%;
+  border-radius: 8px;
+  font-size: 1.05rem;
+}
+
+.error {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.success {
+  background-color: #04aa4f; /* Red */
+  color: white;
+}
+
+.tick {
+  float: right;
+}

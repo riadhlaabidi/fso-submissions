@@ -1,22 +1,22 @@
+import "./App.css";
 import { useEffect, useState } from "react";
 import Form from "./components/Form";
 import ContactList from "./components/ContactList";
 import Search from "./components/Search";
-import "./App.css";
 import Header from "./components/Header";
-import axios from "axios";
+
+import contactService from "./services/contact";
+import Notification from "./components/Notification";
 
 const App = () => {
-  const [persons, setPersons] = useState([]);
+  const [contacts, setContacts] = useState([]);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [query, setQuery] = useState("");
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
-    console.log("Effect triggered");
-    axios
-      .get("http://localhost:3001/persons")
-      .then((res) => setPersons(res.data));
+    contactService.getAll().then((data) => setContacts(data));
   }, []);
 
   const handleNameChange = (event) => {
@@ -31,20 +31,88 @@ const App = () => {
     setQuery(event.target.value);
   };
 
-  const addName = (event) => {
+  const createContact = (event) => {
     event.preventDefault();
     const input = name.trim();
-    const found = persons.find((person) => person.name === input);
-    found
-      ? alert(`${name} is already added to phonebook`)
-      : setPersons([...persons, { name: name, number: number }]);
+    const found = contacts.find((contact) => contact.name === input);
+    if (!found) {
+      contactService.create({ name, number }).then((data) => {
+        setContacts(contacts.concat(data));
+        setNotification({ message: `Added ${name}`, type: "success" });
+        setTimeout(() => {
+          setNotification(null);
+        }, 2500);
+        setName("");
+        setNumber("");
+      });
+    } else {
+      const confirmed = window.confirm(
+        `${found.name} is already added to phonebook \n` +
+          `Would you like to replace the old number ?`
+      );
+      if (confirmed) {
+        const updatedContact = { ...found, number };
+        contactService
+          .update(found.id, updatedContact)
+          .then((data) => {
+            setContacts(
+              contacts.map((contact) =>
+                contact.id !== found.id ? contact : data
+              )
+            );
+            setNotification({ message: `Updated ${name}`, type: "success" });
+            setTimeout(() => {
+              setNotification(null);
+            }, 2500);
+          })
+          .catch((error) => {
+            setNotification({
+              message: `Information of ${name} has already been removed from server`,
+              type: "error",
+            });
+            setTimeout(() => {
+              setNotification(null);
+            }, 2500);
+          });
+      }
+    }
   };
 
-  const entries = query
-    ? persons.filter((person) => {
-        return person.name.toLowerCase().includes(query.toLowerCase());
+  const deleteContact = (contact) => {
+    const confirmed = window.confirm(`Delete ${contact.name} ?`);
+    if (confirmed) {
+      contactService
+        .deleteOne(contact.id)
+        .then(() => {
+          setNotification({
+            message: `Deleted ${contact.name}`,
+            type: "success",
+          });
+          setTimeout(() => {
+            setNotification(null);
+          }, 2500);
+        })
+        .catch((error) => {
+          setNotification({
+            message: `Contact ${contact.name} already deleted `,
+            type: "error",
+          });
+          setTimeout(() => {
+            setNotification(null);
+          }, 2500);
+        });
+      setContacts(contacts.filter((c) => c.id !== contact.id));
+    }
+    setTimeout(() => {
+      setNotification(null);
+    }, 2500);
+  };
+
+  const filtered = query
+    ? contacts.filter((contact) => {
+        return contact.name.toLowerCase().includes(query.toLowerCase());
       })
-    : persons;
+    : contacts;
 
   return (
     <div className="container">
@@ -57,13 +125,14 @@ const App = () => {
             number={number}
             onNameChange={handleNameChange}
             onNumberChange={handleNumberChange}
-            onSubmit={addName}
+            onSubmit={createContact}
           />
+          {notification && <Notification {...notification} />}
         </div>
         <div className="right-search">
           <h2>Numbers</h2>
           <Search query={query} onChange={handleQueryChange} />
-          <ContactList entries={entries} />
+          <ContactList contacts={filtered} handleDelete={deleteContact} />
         </div>
       </div>
     </div>

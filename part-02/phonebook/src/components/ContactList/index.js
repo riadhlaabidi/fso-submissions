@@ -1,13 +1,19 @@
-import PersonDetails from "../PersonDetails";
+import ContactDetails from "../ContactDetails";
 import "./contact-list.css";
 
-const ContactList = ({ entries }) => {
+const ContactList = ({ contacts, handleDelete }) => {
   return (
     <div className="contact-list">
-      {entries.length === 0 ? (
+      {contacts.length === 0 ? (
         <p className="not-found">No contact found.</p>
       ) : (
-        entries.map((entry) => <PersonDetails key={entry.name} {...entry} />)
+        contacts.map((contact) => (
+          <ContactDetails
+            key={contact.id}
+            {...contact}
+            onClick={() => handleDelete(contact)}
+          />
+        ))
       )}
     </div>
   );

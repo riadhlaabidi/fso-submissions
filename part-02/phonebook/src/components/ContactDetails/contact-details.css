@@ -1,0 +1,35 @@
+.card {
+  display: flex;
+  padding: 12px 24px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background-color: #010409;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0);
+  font-size: 1.1rem;
+  width: 100%;
+}
+
+.card:hover {
+  border: 1px solid whitesmoke;
+}
+
+.contact {
+  display: flex;
+  width: 95%;
+  justify-content: space-between;
+}
+
+.delete-btn {
+  margin-left: 24px;
+  font-size: 1.35rem;
+  background: none;
+  border: none;
+  color: rgb(138, 0, 0);
+  text-align: center;
+  padding: 0;
+}
+
+.delete-btn:hover {
+  color: rgb(255, 0, 0);
+}
